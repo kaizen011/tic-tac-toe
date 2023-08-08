@@ -1,0 +1,5 @@
+body {
+    background: linear-gradient(to bottom, #87ceeb, #b0e2ff);
+    margin: 0; /* Remove default margin to cover the entire viewport */
+    min-height: 100vh; /* Ensure the gradient covers the full viewport height */
+  }
