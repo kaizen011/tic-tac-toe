@@ -27,25 +27,36 @@ function createPlayer(name, marker) {
     };
   
     const renderBoard = () => {
-      const boardContainer = document.querySelector(".board-container");
-      boardContainer.innerHTML = "";
-  
-      board.forEach((cell, index) => {
-        const cellElement = document.createElement("div");
-        cellElement.classList.add("cell");
-        cellElement.textContent = cell || "";
-        cellElement.addEventListener("click", () => Game.handleCellClick(index));
-        boardContainer.appendChild(cellElement);
-      });
-    };
-  
-    return {
-      createBoard,
-      getBoard,
-      placeMarker,
-      renderBoard,
-    };
-  })();
+        const boardContainer = document.querySelector(".board-container");
+        boardContainer.innerHTML = "";
+    
+        board.forEach((cell, index) => {
+          const cellElement = document.createElement("div");
+          cellElement.classList.add("cell");
+          
+          if (cell === "X") {
+            const xImage = document.createElement("img");
+            xImage.src = "police.png"; // Replace with actual image path for X
+            cellElement.appendChild(xImage);
+          } else if (cell === "O") {
+            const oImage = document.createElement("img");
+            oImage.src = "terrorist.png"; // Replace with actual image path for O
+            cellElement.appendChild(oImage);
+          }
+          
+          cellElement.addEventListener("click", () => Game.handleCellClick(index));
+          boardContainer.appendChild(cellElement);
+        });
+      };
+    
+      return {
+        createBoard,
+        getBoard,
+        placeMarker,
+        renderBoard,
+      };
+    })();
+    
   
   // Game Object
   const Game = (() => {
@@ -118,5 +129,5 @@ function createPlayer(name, marker) {
     return {
       handleCellClick,
     };
+    
   })();
-  
