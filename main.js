@@ -114,6 +114,15 @@ function createPlayer(name, marker) {
     const displayResult = (message) => {
       const resultMessage = document.getElementById("result-message");
       resultMessage.textContent = message;
+      resultMessage.style.display = "block";
+      setTimeout(() => {
+        resultMessage.style.opacity = "0"; 
+        setTimeout(() => {
+            resultMessage.style.display = "none"; 
+            resultMessage.style.opacity = "1"; 
+        }, 300); 
+    }, 2000); 
+
     };
   
     const initGame = () => {

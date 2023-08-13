@@ -1,11 +1,16 @@
 body {
-  background: linear-gradient(to bottom, #87ceeb, #b0e2ff);
   margin: 0;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+body {
+  background-image: url("dust2.jpg");
+  background-size: cover; 
+  background-repeat: no-repeat; 
 }
 
 .board-container {
@@ -44,4 +49,15 @@ img{
 
 .restart-button:hover {
   background-color: #45a049;
+}
+
+#result-message {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px 20px;
+  border-radius: 5px;
+  display: none;
 }
