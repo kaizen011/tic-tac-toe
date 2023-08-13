@@ -65,36 +65,22 @@ function createPlayer(name, marker) {
       gameActive = false;
     };
   
-    const checkWinner = () => {
-        const winningCombos = [
-          [0, 1, 2],
-          [3, 4, 5],
-          [6, 7, 8],
-          [0, 3, 6],
-          [1, 4, 7],
-          [2, 5, 8],
-          [0, 4, 8],
-          [2, 4, 6],
-        ];
-      
-        for (const combo of winningCombos) {
-          const [a, b, c] = combo;
-          if (
-            Gameboard.getBoard()[a] &&
-            Gameboard.getBoard()[a] === Gameboard.getBoard()[b] &&
-            Gameboard.getBoard()[a] === Gameboard.getBoard()[c]
-          ) {
-            return currentPlayer;
-          }
-        }
-      
-        if (!Gameboard.getBoard().includes(null)) {
-          return "tie";
-        }
-      
-        return null;
-      };
-      
+    const checkWin = (board, marker) => {
+      const winCombinations = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6],
+      ];
+  
+      return winCombinations.some(combination => {
+        return combination.every(index => board[index] === marker);
+      });
+    };
   
     const handleCellClick = (index) => {
       if (!gameActive) return;
@@ -102,17 +88,21 @@ function createPlayer(name, marker) {
       if (Gameboard.placeMarker(index, currentPlayer.marker)) {
         Gameboard.renderBoard();
   
-        const winner = checkWinner();
-        if (winner === currentPlayer) {
-          alert(`${currentPlayer.name} wins!`);
+        if (checkWin(Gameboard.getBoard(), currentPlayer.marker)) {
+          displayResult(`${currentPlayer.name} wins!`);
           endGame();
-        } else if (winner === "tie") {
-          alert("It's a tie!");
+        } else if (Gameboard.getBoard().every(cell => cell !== null)) {
+          displayResult("It's a tie!");
           endGame();
         } else {
           switchPlayer();
         }
       }
+    };
+  
+    const displayResult = (message) => {
+      const resultMessage = document.getElementById("result-message");
+      resultMessage.textContent = message;
     };
   
     const initGame = () => {
@@ -126,7 +116,7 @@ function createPlayer(name, marker) {
     initGame();
   
     return {
-      handleCellClick, // Make handleCellClick accessible outside the module
+      handleCellClick,
     };
   })();
   
