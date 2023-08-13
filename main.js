@@ -3,6 +3,10 @@ function createPlayer(name, marker) {
     return { name, marker };
   }
   
+  // Generating Player Objects
+  const player1 = createPlayer("Player 1", "X");
+  const player2 = createPlayer("Player 2", "O");
+  
   // Gameboard Module
   const Gameboard = (() => {
     let board = [];
@@ -11,9 +15,7 @@ function createPlayer(name, marker) {
       board = Array(9).fill(null);
     };
   
-    const getBoard = () => {
-      return board;
-    };
+    const getBoard = () => board;
   
     const placeMarker = (index, marker) => {
       if (board[index] === null) {
@@ -24,10 +26,24 @@ function createPlayer(name, marker) {
       }
     };
   
+    const renderBoard = () => {
+      const boardContainer = document.querySelector(".board-container");
+      boardContainer.innerHTML = "";
+  
+      board.forEach((cell, index) => {
+        const cellElement = document.createElement("div");
+        cellElement.classList.add("cell");
+        cellElement.textContent = cell || "";
+        cellElement.addEventListener("click", () => Game.handleCellClick(index));
+        boardContainer.appendChild(cellElement);
+      });
+    };
+  
     return {
       createBoard,
       getBoard,
       placeMarker,
+      renderBoard,
     };
   })();
   
@@ -53,20 +69,23 @@ function createPlayer(name, marker) {
       if (!gameActive) return;
   
       if (Gameboard.placeMarker(index, currentPlayer.marker)) {
+        Gameboard.renderBoard();
         switchPlayer();
       }
     };
   
+    const initGame = () => {
+      Gameboard.createBoard();
+      Gameboard.renderBoard();
+      startGame();
+    };
+  
+    document.getElementById("restart-button").addEventListener("click", initGame);
+  
+    initGame();
+  
     return {
-      startGame,
-      endGame,
-      handleCellClick,
+      handleCellClick, // Make handleCellClick accessible outside the module
     };
   })();
-  
-  // Generating Player Objects
-  const player1 = createPlayer("Player 1", "X");
-  const player2 = createPlayer("Player 2", "O");
-  
- 
   
