@@ -65,12 +65,53 @@ function createPlayer(name, marker) {
       gameActive = false;
     };
   
+    const checkWinner = () => {
+        const winningCombos = [
+          [0, 1, 2],
+          [3, 4, 5],
+          [6, 7, 8],
+          [0, 3, 6],
+          [1, 4, 7],
+          [2, 5, 8],
+          [0, 4, 8],
+          [2, 4, 6],
+        ];
+      
+        for (const combo of winningCombos) {
+          const [a, b, c] = combo;
+          if (
+            Gameboard.getBoard()[a] &&
+            Gameboard.getBoard()[a] === Gameboard.getBoard()[b] &&
+            Gameboard.getBoard()[a] === Gameboard.getBoard()[c]
+          ) {
+            return currentPlayer;
+          }
+        }
+      
+        if (!Gameboard.getBoard().includes(null)) {
+          return "tie";
+        }
+      
+        return null;
+      };
+      
+  
     const handleCellClick = (index) => {
       if (!gameActive) return;
   
       if (Gameboard.placeMarker(index, currentPlayer.marker)) {
         Gameboard.renderBoard();
-        switchPlayer();
+  
+        const winner = checkWinner();
+        if (winner === currentPlayer) {
+          alert(`${currentPlayer.name} wins!`);
+          endGame();
+        } else if (winner === "tie") {
+          alert("It's a tie!");
+          endGame();
+        } else {
+          switchPlayer();
+        }
       }
     };
   
