@@ -4,8 +4,8 @@ function createPlayer(name, marker) {
   }
   
   // Generating Player Objects
-  const player1 = createPlayer("Player 1", "X");
-  const player2 = createPlayer("Player 2", "O");
+  const player1 = createPlayer("Counter-Terrorist", "X");
+  const player2 = createPlayer("Terrorist", "O");
   
   // Gameboard Module
   const Gameboard = (() => {
@@ -36,11 +36,11 @@ function createPlayer(name, marker) {
           
           if (cell === "X") {
             const xImage = document.createElement("img");
-            xImage.src = "police.png"; // Replace with actual image path for X
+            xImage.src = "police.png"; 
             cellElement.appendChild(xImage);
           } else if (cell === "O") {
             const oImage = document.createElement("img");
-            oImage.src = "terrorist.png"; // Replace with actual image path for O
+            oImage.src = "terrorist.png"; 
             cellElement.appendChild(oImage);
           }
           
