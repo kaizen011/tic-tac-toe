@@ -12,7 +12,15 @@ body {
   background-size: cover; 
   background-repeat: no-repeat; 
 }
-
+.logo{
+  height: 100px;
+  width: 150px;
+}
+h1{
+  font-family:monospace;
+  color: #000000;
+  font-size: 50px;
+}
 .board-container {
   display: grid;
   grid-template-columns: repeat(3, 100px);
@@ -22,6 +30,15 @@ body {
 img{
   height: 100px;
   width: 100px;
+}
+
+.cell {
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.cell:hover {
+  background-color: #ffffff69; 
 }
 .cell {
   width: 100px;
